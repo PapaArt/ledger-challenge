@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PaymentMethod {
+  CASH
+  CHECK
+  CREDIT_CARD
+  OTHER
+}
+
+model Ledger {
+  id              String   @id @default(uuid())
+  date            DateTime // Data do recebimento
+  receiptNumber   String?  // Número do recibo (opcional)
+  amountReceived  Float    // Valor recebido
+  description     String   // Motivo do pagamento
+  payorName       String   // Quem pagou
+  payeeName       String   // Quem recebeu
+  paymentMethod   PaymentMethod // Método de pagamento
+  checkNumber     String?  // Se pago por cheque
+  creditCardNumber String? // Se pago por cartão
+  creditCardExp   String?  // MM/YYYY
+  creditCardSec   String?  // Código de segurança
+  createdAt       DateTime @default(now())
+}
+
+
+model BankStatement {
+  id            String   @id @default(uuid())
+  accountName   String   // Nome do titular da conta
+  accountType   String   // Tipo da conta (corrente, poupança, etc)
+  accountNumber String   // Número da conta
+  date          DateTime // Data da transação
+  description   String   // Descrição da transação
+  moneyOut      Float?   // Saída de dinheiro
+  moneyIn       Float?   // Entrada de dinheiro
+  balance       Float?   // Saldo após a transação
+  createdAt     DateTime @default(now())
+}
