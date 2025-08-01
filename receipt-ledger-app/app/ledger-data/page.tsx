@@ -21,6 +21,7 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import Link from "next/link";
+import { Ledger } from "@prisma/client";
 
 export default async function LedgerDataPage() {
 
@@ -42,19 +43,19 @@ export default async function LedgerDataPage() {
                                 <NavigationMenuTrigger className="text-purple">Menu</NavigationMenuTrigger>
                                 <NavigationMenuContent className="bg-white shadow-lg rounded-lg">
                                     <NavigationMenuLink className="px-4 py-2 hover:bg-purple-600" asChild>
-                                    <Link href="/">
-                                        Home
-                                    </Link>
+                                        <Link href="/">
+                                            Home
+                                        </Link>
                                     </NavigationMenuLink>
-                                    <NavigationMenuLink className="px-4 py-2 hover:bg-purple-600">
-                                    <Link href="/">
-                                        Matches
-                                    </Link>
+                                    <NavigationMenuLink className="px-4 py-2 hover:bg-purple-600" asChild>
+                                        <Link href="/matches">
+                                            Matches
+                                        </Link>
                                     </NavigationMenuLink>
-                                    <NavigationMenuLink className="px-4 py-2 hover:bg-purple-600">
-                                    <Link href="/bank-statement">
-                                        Bank Statement
-                                    </Link>    
+                                    <NavigationMenuLink className="px-4 py-2 hover:bg-purple-600" asChild>
+                                        <Link href="/bank-statement">
+                                            Bank Statement
+                                        </Link>
                                     </NavigationMenuLink>
                                 </NavigationMenuContent>
                             </NavigationMenuItem>
@@ -67,7 +68,7 @@ export default async function LedgerDataPage() {
                 <h2 className="text-3xl font-semibold mb-6 text-center text-purple-900">📄 Latest Receipts</h2>
                 <div className="bg-white/70 backdrop-blur-md border border-purple-200 shadow-lg rounded-xl p-6 w-full max-w-6xl">
                     <Table className="w-full">
-                        <TableCaption className="text-center text-purple-900 font-semibold">Ledger Data</TableCaption>
+                        <TableCaption className="text-center text-purple-900 font-semibold">📊 Ledger Data</TableCaption>
                         <TableHeader>
                             <TableRow className="bg-purple-100">
                                 <TableHead>Date</TableHead>

@@ -4,7 +4,7 @@ import { AnimatedText } from "./components/AnimatedText";
 import { NavCard } from "./components/NavCard";
 import { Button } from "@/components/ui/button"
 import { IconDeviceDesktopAnalytics } from "@tabler/icons-react";
-
+import Link  from "next/link";
 
 
 export default function Home() {
@@ -56,7 +56,9 @@ export default function Home() {
             <div className="mt-8 flex justify-center">
               <AnimatedText delay={0.6}>
                 <Button variant="outline" size="lg">
-                  Explore your data <IconDeviceDesktopAnalytics />
+                  <Link href="/matches" className="flex items-center gap-2">
+                    Explore your data <IconDeviceDesktopAnalytics className="w-5 h-5"/>
+                  </Link>
                 </Button>
               </AnimatedText>
             </div>

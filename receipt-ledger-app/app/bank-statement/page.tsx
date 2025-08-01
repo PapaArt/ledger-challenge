@@ -51,17 +51,17 @@ export default async function BankStatements() {
                             <NavigationMenuItem>
                                 <NavigationMenuTrigger className="text-purple">Menu</NavigationMenuTrigger>
                                 <NavigationMenuContent className="bg-white shadow-lg rounded-lg">
-                                    <NavigationMenuLink className="px-4 py-2 hover:bg-purple-600">
+                                    <NavigationMenuLink className="px-4 py-2 hover:bg-purple-600" asChild>
                                         <Link href="/">
                                             Home
                                         </Link>
                                     </NavigationMenuLink>
-                                    <NavigationMenuLink className="px-4 py-2 hover:bg-purple-600">
+                                    <NavigationMenuLink className="px-4 py-2 hover:bg-purple-600" asChild>
                                         <Link href="/matches">
                                             Matches
                                         </Link>
                                     </NavigationMenuLink>
-                                    <NavigationMenuLink className="px-4 py-2 hover:bg-purple-600">
+                                    <NavigationMenuLink className="px-4 py-2 hover:bg-purple-600" asChild>
                                         <Link href="/ledger-data">
                                             Ledger
                                         </Link>
