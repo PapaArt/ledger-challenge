@@ -20,10 +20,41 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 
+interface ComparisonResponse {
+  matches: {
+    ledger: {
+      id: string;
+      date: string;
+      amountReceived: number;
+      description: string;
+    };
+    bank: {
+      id: string;
+      date: string;
+      moneyIn?: number;
+      moneyOut?: number;
+      description: string;
+    };
+  }[];
+  onlyInLedger: {
+    id: string;
+    date: string;
+    amountReceived: number;
+    description: string;
+  }[];
+  onlyInBank: {
+    id: string;
+    date: string;
+    moneyIn?: number;
+    moneyOut?: number;
+    description: string;
+  }[];
+}
+
 
 export default async function MatchesPage() {
 
-    const data = await fetch('http://172.20.208.1:3000/api/comparison', {
+    const data: ComparisonResponse = await fetch('http://172.20.208.1:3000/api/comparison', {
         cache: 'no-store',
     }).then(res => res.json());
 
@@ -78,15 +109,15 @@ export default async function MatchesPage() {
                         </TableHeader>
                         <TableBody>
                             {[
-                                ...data!.matches.map((entry: any) => ({
+                                ...data!.matches.map((entry) => ({
                                     type: "✅ Match",
-                                    date: entry.ledger.date,
+                                    date: entry.bank.date,
                                     amount: entry.ledger.amountReceived,
                                     description: entry.ledger.description,
                                     ledgerId: entry.ledger.id,
                                     bankId: entry.bank.id,
                                 })),
-                                ...data!.onlyInLedger.map((entry: any) => ({
+                                ...data!.onlyInLedger.map((entry) => ({
                                     type: "🧾 Only Ledger",
                                     date: entry.date,
                                     amount: entry.amountReceived,
@@ -94,10 +125,10 @@ export default async function MatchesPage() {
                                     ledgerId: entry.id,
                                     bankId: null,
                                 })),
-                                ...data!.onlyInBank.map((entry: any) => ({
+                                ...data!.onlyInBank.map((entry) => ({
                                     type: "💵 Only Bank",
                                     date: entry.date,
-                                    amount: entry.moneyOut ?? entry.moneyIn,
+                                    amount: entry.moneyIn ?? entry.moneyOut,
                                     description: entry.description,
                                     ledgerId: null,
                                     bankId: entry.id,
