@@ -1,16 +1,13 @@
-import { Skeleton } from "@/components/ui/skeleton";
 import {
     Table,
     TableBody,
     TableCaption,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
 import prisma from "../../lib/prisma";
-import Logo from "../../public/banco.png";
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -18,10 +15,8 @@ import {
     NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger,
-    navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import Link from "next/link";
-import { Ledger } from "@prisma/client";
 
 export default async function LedgerDataPage() {
 
@@ -92,9 +87,9 @@ export default async function LedgerDataPage() {
                     </Table>
                 </div>
 
-                <p className="text-gray-500 text-sm text-center mt-4">
+                {/* <p className="text-gray-500 text-sm text-center mt-4">
                     Don’t see what you’re looking for? Try uploading a new receipt.
-                </p>
+                </p> */}
             </div>
         </>
     );

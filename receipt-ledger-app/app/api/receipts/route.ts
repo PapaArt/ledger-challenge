@@ -1,9 +1,14 @@
-import { IncomingForm } from "formidable";
 import { NextRequest, NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
-import { promises as fs } from "fs";
 import PDFParser from "pdf2json";
 import { extractFromText } from "../../../lib/pdfUtils";
+
+interface CustomPDFParser {
+  on(event: "pdfParser_dataError", callback: (err: Error) => void): void;
+  on(event: "pdfParser_dataReady", callback: () => void): void;
+  parseBuffer(buffer: Buffer): void;
+  getRawTextContent(): string;
+}
 
 export async function POST(req: NextRequest) {
   const formData: FormData = await req.formData();
@@ -11,26 +16,25 @@ export async function POST(req: NextRequest) {
 
   if (uploadedFiles && uploadedFiles.length > 0) {
     const uploadedFile = uploadedFiles[0];
-
     if (!(uploadedFile instanceof File)) {
       return NextResponse.json({ error: "Arquivo inválido." }, { status: 400 });
     }
 
     const fileBuffer = Buffer.from(await uploadedFile.arrayBuffer());
-
-    const pdfParser = new (PDFParser as any)(null, 1);
+    // console.log("Received file:", uploadedFile.name);
+    const pdfParser = new (PDFParser as unknown as {
+      new (): CustomPDFParser;
+    })();
 
     const parsedText = await new Promise<string>((resolve, reject) => {
-      pdfParser.on("pdfParser_dataError", (err: any) => {
+      pdfParser.on("pdfParser_dataError", (err: Error) => {
         console.error("Error parsing PDF:", err);
         reject("Error parsing PDF");
       });
 
       pdfParser.on("pdfParser_dataReady", () => {
-        const text = (pdfParser as any).getRawTextContent();
+        const text = pdfParser.getRawTextContent();
         resolve(text);
-        //   console.log((pdfParser as any).getRawTextContent());
-        //   parsedText = (pdfParser as any).getRawTextContent();
       });
 
       pdfParser.parseBuffer(fileBuffer);
@@ -55,7 +59,8 @@ export async function POST(req: NextRequest) {
           creditCardNumber: extractedData.creditCardNumber,
           creditCardExp: extractedData.creditCardExp,
           creditCardSec: extractedData.creditCardSec,
-          checkNumber: extractedData.paymentMethod === "CHECK" ? uuidv4() : null
+          checkNumber:
+            extractedData.paymentMethod === "CHECK" ? uuidv4() : null,
         }),
       });
 

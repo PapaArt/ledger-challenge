@@ -2,6 +2,17 @@ import { NextRequest, NextResponse } from "next/server";
 import Papa from "papaparse";
 import prisma from "../../../../lib/prisma";
 
+interface BankStatement {
+  accountName: string;
+  accountNumber: string;
+  accountType: string;
+  date: Date;
+  description: string;
+  moneyOut: number | null;
+  moneyIn: number | null;
+  balance: number;
+}
+
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
   const file = formData.get("file");
@@ -25,19 +36,19 @@ export async function POST(req: NextRequest) {
     console.error("Erro no parse:", parsed.errors);
     return NextResponse.json({ error: "CSV parse error" }, { status: 500 });
   }
-
-  const entries = parsed.data as any[];
+  console.log("Parsed CSV data:", parsed.data);
+  const entries = parsed.data as BankStatement[];
 
   const transactions = entries.map((row) => {
-    const moneyOut = parseFloat(row["Money Out"] || "0") || 0;
-    const moneyIn = parseFloat(row["Money In"] || "0") || 0;
+    const moneyOut = row.moneyOut || 0;
+    const moneyIn = row.moneyIn || 0;
 
     return {
-      accountName: row["Account Name"] || "",
-      accountType: row["Account Type"] || "",
-      accountNumber: row["Account Number"] || "",
-      date: new Date(row["Date"]),
-      description: row["Description"] || "",
+      accountName: row.accountName,
+      accountType: row.accountType,
+      accountNumber: row.accountNumber,
+      date: new Date(row.date),
+      description: row.description || "",
       moneyOut: moneyOut || null,
       moneyIn: moneyIn || null,
       balance: moneyIn - moneyOut,

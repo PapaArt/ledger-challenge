@@ -1,16 +1,4 @@
-import { Skeleton } from "@/components/ui/skeleton";
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
 import prisma from "../../lib/prisma";
-import Logo from "../../public/banco.png";
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -18,7 +6,6 @@ import {
     NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger,
-    navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import Link from "next/link";
 import * as React from "react"

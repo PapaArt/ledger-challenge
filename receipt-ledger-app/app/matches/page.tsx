@@ -1,7 +1,5 @@
 import * as React from "react"
-import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
     Table,
     TableBody,
@@ -12,8 +10,6 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import prisma from "../../lib/prisma";
-import Logo from "../../public/banco.png";
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -23,14 +19,6 @@ import {
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
-import {
-    PieChart,
-    Pie,
-    Cell,
-    Tooltip,
-    Legend,
-    ResponsiveContainer,
-} from 'recharts'
 
 
 export default async function MatchesPage() {

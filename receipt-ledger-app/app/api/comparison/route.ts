@@ -16,10 +16,6 @@ export async function GET() {
       const sameDate = new Date(ledger.date).toDateString() === new Date(bank.date).toDateString();
       const sameAmount =
         ledger.amountReceived === (bank.moneyOut ?? bank.moneyIn);
-      // const similarDescription =
-      //   ledger.description.trim().toLowerCase() ===
-      //   bank.description.trim().toLowerCase();
-    //   console.log(`Same Date: ${sameDate}, Same Amount: ${sameAmount}, Similar Description: ${similarDescription}`);
       return (sameDate && sameAmount);
     });
 
