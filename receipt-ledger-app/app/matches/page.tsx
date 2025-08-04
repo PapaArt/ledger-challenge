@@ -54,7 +54,7 @@ interface ComparisonResponse {
 
 export default async function MatchesPage() {
 
-    const data: ComparisonResponse = await fetch('http://localhost:3000/api/comparison', {
+    const data: ComparisonResponse = await fetch('/api/comparison', {
         cache: 'no-store',
     }).then(res => res.json());
 
