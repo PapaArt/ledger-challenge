@@ -54,7 +54,9 @@ interface ComparisonResponse {
 
 export default async function MatchesPage() {
 
-    const data: ComparisonResponse = await fetch('/api/comparison', {
+    const baseURL = process.env.VERCEL_URL || "http://localhost:3000";
+
+    const data: ComparisonResponse = await fetch(`${baseURL}/api/comparison`, {
         cache: 'no-store',
     }).then(res => res.json());
 
