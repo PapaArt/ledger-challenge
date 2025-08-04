@@ -54,9 +54,11 @@ interface ComparisonResponse {
 
 export default async function MatchesPage() {
 
-    const baseURL = process.env.VERCEL_URL || "http://localhost:3000";
+    // const baseURL = process.env.VERCEL_URL || "http://localhost:3000";
 
-    const data: ComparisonResponse = await fetch(`${baseURL}/api/comparison`, {
+    // console.log("Base URL:", baseURL);
+
+    const data: ComparisonResponse = await fetch('https://ledger-challenge.vercel.app/api/comparison', {
         cache: 'no-store',
     }).then(res => res.json());
 
