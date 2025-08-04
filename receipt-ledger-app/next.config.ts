@@ -1,8 +1,7 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-  // serverComponentsExternalPackages: ['pdf2json'],
+const nextConfig = {
+  reactStrictMode: true,
 };
 
 export default nextConfig;
